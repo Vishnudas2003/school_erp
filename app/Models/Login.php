@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticable;
 
-class Login extends Model
+class Login extends Authenticable
 {
     protected $table = 'login';
     protected $primaryKey = 'id';
@@ -15,6 +16,7 @@ class Login extends Model
         'role',
         'is_active',
     ];
+    protected $hidden = ['password'];
 
     public function student()
     {
