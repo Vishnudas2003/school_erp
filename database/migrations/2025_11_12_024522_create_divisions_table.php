@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('divisions', function (Blueprint $table) {
             $table->id();
             $table->string('division_name', 10);
+            $table->foreignID('class_id')->constrained('classes', 'id');
             $table->timestamps();
         });
     }
