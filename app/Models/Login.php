@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Login extends Authenticable
 {
+    use HasFactory;
     protected $table = 'login';
     protected $primaryKey = 'id';
 

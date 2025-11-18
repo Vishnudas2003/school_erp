@@ -54,3 +54,5 @@ Route::group(['middleware' => ['auth', 'role:4']], function () {
     Route::get('/parent/dashboard', [ParentController::class, 'index'])->name('parent.dashboard');
 });
 Route::get('/logout', [LoginController::class, 'logout']);
+
+Route::get('/students', [StudentController::class, 'getStudent']);

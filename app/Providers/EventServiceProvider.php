@@ -51,9 +51,15 @@ class EventServiceProvider extends ServiceProvider
                 ]);
 
                 $event->menu->add([
-                    'text' => 'Subjects',
+                    'text' => 'Manage Subjects',
                     'url'  => 'subjects',
                     'icon' => 'fas fa-book',
+                ]);
+
+                $event->menu->add([
+                    'text' => 'Reports',
+                    'url'  => 'reports',
+                    'icon' => 'fas fa-file',
                 ]);
             }
 
