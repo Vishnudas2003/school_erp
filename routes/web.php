@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ParentController;
+use App\Http\Controllers\Auth\LoginController;
 
 Auth::routes();
 
@@ -52,3 +53,4 @@ Route::group(['middleware' => ['auth', 'role:3']], function () {
 Route::group(['middleware' => ['auth', 'role:4']], function () {
     Route::get('/parent/dashboard', [ParentController::class, 'index'])->name('parent.dashboard');
 });
+Route::get('/logout', [LoginController::class, 'logout']);

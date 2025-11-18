@@ -75,9 +75,31 @@ class EventServiceProvider extends ServiceProvider
             }
 
             // -------------------------
-            // ROLE: PARENT (3)
+            // ROLE: STUDENT (3)
             // -------------------------
             if ($role == 3) {
+                $event->menu->add([
+                    'text' => 'My Children',
+                    'url'  => 'parent/children',
+                    'icon' => 'fas fa-users',
+                ]);
+
+                $event->menu->add([
+                    'text' => 'Attendance Report',
+                    'url'  => 'parent/attendance',
+                    'icon' => 'fas fa-clipboard-list',
+                ]);
+
+                $event->menu->add([
+                    'text' => 'Grades',
+                    'url'  => 'parent/grades',
+                    'icon' => 'fas fa-graduation-cap',
+                ]);
+            }
+            // -------------------------
+            // ROLE: PARENT (4)
+            // -------------------------
+            if ($role == 4) {
                 $event->menu->add([
                     'text' => 'My Children',
                     'url'  => 'parent/children',
