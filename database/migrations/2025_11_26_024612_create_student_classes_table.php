@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('student_classes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->constrained('students', 'id');
-            $table->foreignd('class_division_id')->constrained('divisions', 'id');
+            $table->foreignId('class_division_id')->constrained('divisions', 'id');
             $table->boolean('is_active');
             $table->timestamps();
         });
