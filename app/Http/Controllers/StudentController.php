@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Students;
+use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
@@ -11,6 +12,68 @@ class StudentController extends Controller
     public function index()
     {
         return view('student.dashboard');
+    }
+
+    public function addStudent(Request $request)
+    {
+        // --- 1. VALIDATION ---
+        $validated = $request->validate([
+            'first_name' => 'required|max:255|string',
+            'last_name' => 'required|max:255|string',
+            'parent_id' => 'nullable|integer',
+
+            'address_line_1' => 'required|max:255|string',
+            'address_line_2' => 'nullable|max:255|string',
+            'city' => 'required|max:255|string',
+            'province' => 'required|max:255|string',
+            'country' => 'required|max:255|string',
+            'postal' => 'required|max:255|string',
+
+            'email' => 'required|email|max:255|unique:logins,email',
+            'password' => 'required|max:255',
+            'role' => 'required|integer',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+
+            // --- 2. CREATE LOGIN USER ---
+            $login = Login::create([
+                'email' => $validated['email'],
+                'password' => bcrypt($validated['password']),
+                'role' => $validated['role'], // student = 3
+            ]);
+
+            // --- 3. CREATE STUDENT RECORD ---
+            $student = Students::create([
+                'login_id' => $login->id,
+                'parent_id' => $validated['parent_id'] ?? null,
+                'first_name' => $validated['first_name'],
+                'last_name' => $validated['last_name'],
+
+                'address_line_1' => $validated['address_line_1'],
+                'address_line_2' => $validated['address_line_2'] ?? null,
+                'city' => $validated['city'],
+                'province' => $validated['province'],
+                'country' => $validated['country'],
+                'postal' => $validated['postal'],
+            ]);
+
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Student added successfully!');
+
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return redirect()->back()->with('error', 'Failed to add student: '.$e->getMessage());
+        }
+    }
+
+    public function assignClass($student_id, $division_id) {
+
     }
 
     public function getStudent($id = null)
