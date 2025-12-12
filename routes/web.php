@@ -39,6 +39,7 @@ Route::get('/dashboard', function () {
 Route::group(['middleware' => ['auth', 'role:1']], function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/addStudent', [AdminController::class, 'addStudent'])->name('admin.addStudent');
+    Route::post('/admin/getParentByEmail', [AdminController::class, 'getParentByEmail']);
 });
 
 // Teacher routes

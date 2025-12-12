@@ -41,7 +41,49 @@
                             <input type="text" id="last_name" name="last_name" class="form-control">
                         </div>
 
-                         <div class="form-group">
+
+                        <div class="form-group">
+                            <label for="p_email">Parent Email</label>
+                            <input type="email" id="p_email" name="p_email" class="form-control">
+                            <button id="check_p_email" class="badge">Check Availability</button>
+                            <span id="p_found_badge" class="badge badge-success" style="display: none">Parent Found</span>
+                            <span id="p_missing_badge" class="badge badge-danger" style="display: none">Parent Not
+                                Found</span>
+                        </div>
+
+
+
+                        <!-- PARENT FORM START-->
+
+                        <div style="display: none" id="parent_form" class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                <div class="card-header">
+                                    <h1>Add Parent</h1>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                <label for="parent_first_name">Parent First Name</label>
+                                <input type="text" id="parent_first_name" name="parent_first_name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="parent_last_name">Parent Last Name</label>
+                                <input type="text" id="parent_last_name" name="parent_last_name" class="form-control">
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="parent_password">Parent Password</label>
+                                <input type="password" id="parent_password" name="parent_password" class="form-control">
+                            </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <!-- PARENT FORM END-->
+
+                        {{-- <div class="form-group">
                             <label for="parent_id">Parent</label>
                             <select name="parent_id" id="parent_id" class="parent_id custom-select rounded-0">
                                 <option value="0">Select Parent</option>
@@ -49,7 +91,9 @@
                                     <option value="{{ $item['id'] }}">{{ $item['name'] }}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
+
+                        <input type="hidden" name="parent_id" id="parent_id" class="parent_id">
 
                         <div class="form-group">
                             <label for="address_line_1">Address Line 1</label>
@@ -103,5 +147,34 @@
 @stop
 
 @section('js')
-    <script></script>
+    <script>
+        $(document).ready(function() {
+            $('#check_p_email').click(function(event) {
+                event.preventDefault();
+                let p_email = $("#p_email").val();
+                $.ajax({
+                    url: "/admin/getParentByEmail",
+                    type: "post",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "email": p_email
+                    },
+                    success: function(data) {
+                        if (!data.parent_id) {
+                            $("#p_missing_badge").show()
+                            $('#parent_form').show()
+                            $("#p_found_badge").hide()
+                            $("#parent_id").val(null)
+                        } else {
+                            $("#p_missing_badge").hide()
+                            $("#p_found_badge").show()
+                             $('#parent_form').hide()
+                            $("#parent_id").val(data.parent_id)
+                        }
+                    }
+                })
+
+            })
+        })
+    </script>
 @stop
