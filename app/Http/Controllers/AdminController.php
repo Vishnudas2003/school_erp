@@ -34,35 +34,28 @@ class AdminController extends Controller
             abort(404, 'Invalid student ID');
         }
 
-        $student = Students::with('parent')
-        ->find($id);
+        $student = Students::with(['parent.login'])->findOrFail($id);
 
-        if (! $student) {
-            abort(404, 'Student not found');
-        }
-       if($student->parent) {
-        $parent_email = Parents::with('login')->find($student->parent->id);
-       }
+        $parent = $student->parent;
+
         $data = [
-            'student_id' => 'No data Found',
-            'roll_number' => 'No data Found',
-            'status' => 1,
-            'student_name' => $student->first_name.' '.$student->last_name,
-            'parent_name' => optional($student->parent)
-                                ? $student->parent->first_name.' '.$student->parent->last_name
-                                : 'N/A',
-            'parent_email' => $parent_email->login->email,
-            'address_line_1' => optional($student->parent) ? $student->parent->address_line_1 : 'N/A',
-            'address_line_2' => optional($student->parent) ? $student->parent->address_line_2 : 'N/A',
-            'city' => optional($student->parent) ? $student->parent->city : 'N/A',
-            'province' => optional($student->parent) ? $student->parent->province : 'N/A',
-            'country' => optional($student->parent) ? $student->parent->country : 'N/A',
-            'postal' => optional($student->parent) ? $student->parent->postal : 'N/A',
+            'student_id' => $student->id,
+            'roll_number' => $student->roll_number ?? 'N/A',
+            'status' => $student->status,
+            'student_name' => "{$student->first_name} {$student->last_name}",
+            'parent_name' => $parent
+                ? "{$parent->first_name} {$parent->last_name}"
+                : 'N/A',
+            'parent_email' => optional($parent?->login)->email ?? 'N/A',
+            'address_line_1' => $parent->address_line_1 ?? 'N/A',
+            'address_line_2' => $parent->address_line_2 ?? 'N/A',
+            'city' => $parent->city ?? 'N/A',
+            'province' => $parent->province ?? 'N/A',
+            'country' => $parent->country ?? 'N/A',
+            'postal' => $parent->postal ?? 'N/A',
         ];
 
-
-
-        return view('student.profile')->with('data', $data);
+        return view('student.profile', compact('data'));
 
     }
 
