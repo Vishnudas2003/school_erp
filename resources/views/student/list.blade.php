@@ -27,8 +27,8 @@
                                         <td>{{ $item['slname'] }}</td>
                                         <td>{{ $item['pfname'] . ' ' . $item['plname'] }}</td>
                                         <td>
-                                            <button class="badge badge-success">Active</button>
-                                            <button class="badge badge-primary">View/Edit</button>
+                                            <a class="badge badge-success">Active</a>
+                                            <a href="/admin/view/student/{{ $item['sid'] }}" class="badge badge-primary">View/Edit</a>
 
                                         </td>
                                     </tr>

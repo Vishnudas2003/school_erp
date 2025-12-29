@@ -15,17 +15,17 @@
                     alt="Student profile picture"
                 >
 
-                <h3 class="profile-username">Aarav Patel</h3>
-                <p class="text-muted">Grade 10 · Section A</p>
+                <h3 class="profile-username">{{ $data['student_name'] }}</h3>
+                <p class="text-muted">N/A</p>
 
                 <ul class="list-group list-group-unbordered mb-3 text-left">
                     <li class="list-group-item">
                         <b>Student ID</b>
-                        <span class="float-right">STU-10234</span>
+                        <span class="float-right">{{ $data['student_id'] }}</span>
                     </li>
                     <li class="list-group-item">
                         <b>Roll Number</b>
-                        <span class="float-right">23</span>
+                        <span class="float-right">{{ $data['roll_number'] }}</span>
                     </li>
                     <li class="list-group-item">
                         <b>Status</b>
@@ -45,9 +45,9 @@
                 <h3 class="card-title">Parent / Guardian</h3>
             </div>
             <div class="card-body">
-                <p><strong>Name:</strong> Ramesh Patel</p>
-                <p><strong>Phone:</strong> +1 999 888 7777</p>
-                <p><strong>Email:</strong> parent@example.com</p>
+                <p><strong>Name:</strong> {{ $data['parent_name'] }}</p>
+                <p><strong>Phone:</strong> N/A</p>
+                <p><strong>Email:</strong> {{ $data['parent_email'] }}</p>
             </div>
         </div>
     </div>
@@ -82,16 +82,17 @@
                     <div class="active tab-pane" id="personal">
                         <div class="row">
                             <div class="col-md-6">
-                                <p><strong>Date of Birth:</strong> 12 Aug 2009</p>
-                                <p><strong>Gender:</strong> Male</p>
-                                <p><strong>Blood Group:</strong> O+</p>
+                                <p><strong>Date of Birth:</strong> N/A</p>
+                                <p><strong>Gender:</strong> N/A</p>
+                                <p><strong>Blood Group:</strong> N/A</p>
                             </div>
                             <div class="col-md-6">
                                 <p><strong>Address:</strong></p>
                                 <p class="text-muted">
-                                    123 King Street<br>
-                                    Toronto, ON<br>
-                                    Canada
+                                    {{ $data['address_line_1'] }}<br>
+                                    {{ $data['city'] }}, {{ $data['province'] }}<br>
+                                    {{ $data['country'] }}<br>
+                                    {{ $data['postal'] }}
                                 </p>
                             </div>
                         </div>
@@ -102,19 +103,19 @@
                         <table class="table table-bordered">
                             <tr>
                                 <th>Class</th>
-                                <td>Grade 10</td>
+                                <td>N/A</td>
                             </tr>
                             <tr>
                                 <th>Section</th>
-                                <td>A</td>
+                                <td>N/A</td>
                             </tr>
                             <tr>
                                 <th>Academic Year</th>
-                                <td>2024 - 2025</td>
+                                <td>N/A</td>
                             </tr>
                             <tr>
                                 <th>Class Teacher</th>
-                                <td>Ms. Johnson</td>
+                                <td>N/A</td>
                             </tr>
                         </table>
                     </div>
@@ -123,10 +124,8 @@
                     <div class="tab-pane" id="attendance">
                         <p><strong>Attendance Summary</strong></p>
                         <ul>
-                            <li>Total Working Days: 180</li>
-                            <li>Days Present: 168</li>
-                            <li>Days Absent: 12</li>
-                            <li>Attendance Percentage: <b>93%</b></li>
+                            <li>No data found</li>
+
                         </ul>
                     </div>
 

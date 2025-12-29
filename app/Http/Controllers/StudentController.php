@@ -110,6 +110,7 @@ class StudentController extends Controller
 
             $data = $students->map(function ($student) {
                 return [
+                    'sid'    => $student->id,
                     'sfname' => $student->first_name,
                     'slname' => $student->last_name,
                     'pfname' => $student->parent->first_name ?? '',
