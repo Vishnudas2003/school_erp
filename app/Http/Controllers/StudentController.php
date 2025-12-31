@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Students;
 use App\Models\Login;
 use App\Models\StudentClass;
+use App\Models\Divisions;
  use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -87,6 +88,19 @@ class StudentController extends Controller
         }
         return false;
 
+    }
+
+    /**
+     *
+     * Don't run this function, It's a seeder function for student_classes table
+     */
+    public function randomizeClass() {
+        // $divisions = Divisions::all();
+        $students = Students::all();
+
+        $students->map(function ($student) {
+            $this->assignClass($student->id, random_int(1,6));
+        });
     }
 
     public function getStudent($id = null)

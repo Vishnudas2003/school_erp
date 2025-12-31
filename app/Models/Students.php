@@ -24,6 +24,9 @@ class Students extends Model
         'province',
         'country',
         'postal',
+        'date_of_birth',
+        'gender',
+        'blood_group',
     ];
 
     public function login()

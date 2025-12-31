@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class StudentClass extends Model
 {
     //
-    protected $table = 'student_classess';
+    protected $table = 'student_classes';
 
     protected $fillable = [
         'student_id',
@@ -24,5 +24,9 @@ class StudentClass extends Model
     public function division()
     {
         return $this->belongsTo(Division::class, 'class_division_id');
+    }
+    public function academicYear()
+    {
+        return $this->belongsTo(academicYear::class, 'academic_year_id');
     }
 }

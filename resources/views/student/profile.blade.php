@@ -82,9 +82,13 @@
                     <div class="active tab-pane" id="personal">
                         <div class="row">
                             <div class="col-md-6">
-                                <p><strong>Date of Birth:</strong> N/A</p>
-                                <p><strong>Gender:</strong> N/A</p>
-                                <p><strong>Blood Group:</strong> N/A</p>
+                                <p><strong>Date of Birth:</strong> {{ $data['date_of_birth']}}</p>
+                                @if ($data['gender'] == 'male')
+                                    <p><strong>Gender:</strong> Male</p>
+                                @else
+                                    <p><strong>Gender:</strong> Female</p>
+                                @endif
+                                <p><strong>Blood Group:</strong> {{ $data['blood_group'] }}</p>
                             </div>
                             <div class="col-md-6">
                                 <p><strong>Address:</strong></p>

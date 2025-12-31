@@ -28,16 +28,13 @@ class AdminController extends Controller
 
     public function viewStudent($id)
     {
-
         $id = SanitizeInput::run([$id])[0];
         if (! ctype_digit((string) $id)) {
             abort(404, 'Invalid student ID');
         }
 
         $student = Students::with(['parent.login'])->findOrFail($id);
-
         $parent = $student->parent;
-
         $data = [
             'student_id' => $student->id,
             'roll_number' => $student->roll_number ?? 'N/A',
@@ -53,10 +50,11 @@ class AdminController extends Controller
             'province' => $parent->province ?? 'N/A',
             'country' => $parent->country ?? 'N/A',
             'postal' => $parent->postal ?? 'N/A',
+            'date_of_birth' => date('j F Y', strtotime($student->date_of_birth)) ?? 'N/A',
+            'gender' => $student->gender ?? 'N/A',
+            'blood_group' => $student->blood_group ?? 'N/A',
         ];
-
         return view('student.profile', compact('data'));
-
     }
 
     public function addStudent()
