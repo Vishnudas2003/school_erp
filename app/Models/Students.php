@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Students extends Model
 {
     use HasFactory;
+
     protected $table = 'students';
+
     protected $primaryKey = 'id';
 
     protected $fillable = [
@@ -22,6 +24,9 @@ class Students extends Model
         'province',
         'country',
         'postal',
+        'date_of_birth',
+        'gender',
+        'blood_group',
     ];
 
     public function login()
@@ -33,5 +38,9 @@ class Students extends Model
     {
         return $this->belongsTo(Parents::class, 'parent_id');
     }
-}
 
+    public function StudentClasses()
+    {
+        return $this->hasMany(StudentClass::class, 'student_id');
+    }
+}

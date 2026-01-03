@@ -24,6 +24,9 @@ class StudentsFactory extends Factory
             'province' => $this->faker->state,
             'country' => $this->faker->country,
             'postal' => $this->faker->postcode,
+            'date_of_birth' => $this->faker->birthdate,
+            'gender'  => $this->faker->randomElement(['male', 'female']),
+            'blood_group' => $this->faker->randomElement(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']),
         ];
     }
 }

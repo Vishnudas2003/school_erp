@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('student_classes', function (Blueprint $table) {
+        Schema::create('academic_year', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained('students', 'id');
-            $table->foreignId('class_division_id')->constrained('divisions', 'id');
+            $table->string('year', 10);
             $table->boolean('is_active');
             $table->timestamps();
         });
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('student_classes');
+        Schema::dropIfExists('academic_year');
     }
 };
