@@ -9,6 +9,7 @@ use App\Models\AcademicYear;
 use App\Models\StudentClass;
 use App\Pipelines\SanitizeInput;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -35,12 +36,14 @@ class AdminController extends Controller
 
     public function viewStudent($id)
     {
-
+        DB::enableQueryLog();
 
         $id = SanitizeInput::run([$id])[0];
+
         if (! ctype_digit((string) $id)) {
             abort(404, 'Invalid student ID');
         }
+
         $academicYear = $this->getCurrentAcademicYear();
         $student = Students::with(['parent.login'])->findOrFail($id);
         $parent = $student->parent;
@@ -48,6 +51,7 @@ class AdminController extends Controller
         ->where('student_id', $student->id)
         ->where('academic_year_id', $academicYear->id)
         ->with(['division.class'])->firstOrFail();
+
         $data = [
             'student_id' => $student->id,
             'roll_number' => $student->roll_number ?? 'N/A',
@@ -100,4 +104,14 @@ class AdminController extends Controller
             'parent_id' => $parent,
         ]);
     }
+
+    public function assignClassTeacher($id, $classDivisionId) {
+
+    }
 }
+/**
+ *
+ * To assign a class teacher, we need two tables.
+ * Teacher-division - to track each teachers teaching on each division with a flg to mark if its class teacher or not
+ * Also table to track which subjects each teacher teaches!
+ */

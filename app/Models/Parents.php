@@ -21,6 +21,8 @@ class Parents extends Model
         'province',
         'country',
         'postal',
+        'area_code',
+        'phone_number'
     ];
 
     public function login()
