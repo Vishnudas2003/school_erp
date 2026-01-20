@@ -13,6 +13,7 @@ class StudentClass extends Model
         'student_id',
         'class_division_id',
         'is_active',
+        'academic_year_id',
     ];
 
 
@@ -27,6 +28,6 @@ class StudentClass extends Model
     }
     public function academicYear()
     {
-        return $this->belongsTo(academicYear::class, 'academic_year_id');
+        return $this->belongsTo(AcademicYear::class, 'academic_year_id');
     }
 }
